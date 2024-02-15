@@ -8,19 +8,24 @@ const url = require("url");
 
 
 // the server should respond to all requests with a string
-const server = http.createServer(function (request, response) {
+const server = http.createServer(function (req, res) {
     // Get the URL and parse it
-    const parsedUrl = url.parse(request.url, true);
+    const parsedUrl = url.parse(req.url, true);
 
     // Get the path
     const path = parsedUrl.pathname;
     const trimmedPath = path.replace(/^\/+|\/+$/g, '')
 
+    // Get the HTTP method
+    const method = req.method.toLowerCase();
+
     // Send the response
-    response.end("Hello world\n")
+    res.end("Hello world\n")
 
     // Log the request path
-    console.log("Request recieved on this path: " + trimmedPath)
+    console.log(
+        "req received on this path: " + trimmedPath +
+        "\nwith method: " + method)
 });
 
 
