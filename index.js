@@ -9,12 +9,15 @@ const url = require("url");
 
 // the server should respond to all requests with a string
 const server = http.createServer(function (req, res) {
-    // Get the URL and parse it
+    // Get the URL and parse/turn it into an object
     const parsedUrl = url.parse(req.url, true);
 
     // Get the path
     const path = parsedUrl.pathname;
     const trimmedPath = path.replace(/^\/+|\/+$/g, '')
+
+    // Get the query string as an object
+    const queryStringObject = parsedUrl.query;
 
     // Get the HTTP method
     const method = req.method.toLowerCase();
@@ -25,7 +28,8 @@ const server = http.createServer(function (req, res) {
     // Log the request path
     console.log(
         "req received on this path: " + trimmedPath +
-        "\nwith method: " + method)
+        "\nwith method: " + method +
+        "\nand with these query string parameters: " + JSON.stringify(queryStringObject))
 });
 
 
